@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%90%99%3C/text%3E%3C/svg%3E">
+<title>My Octopus Friend · Deck Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single column you can follow on a Steam Deck browser or a phone — setup steps, then a test checklist that builds a report to copy and send. */
+:root {
+  --bg: #eef3f1; --surface: #ffffff; --sunk: #e3ece9; --ink: #12303a; --muted: #557079; --line: #c9d8d4;
+  --accent: #b8336f; --accent-soft: #f6dce8; --teal: #1d7c7a; --ok: #2d7d46; --ok-soft: #dcefe1; --warn: #9a6400; --warn-soft: #f6ead0;
+  --font-display: "Pixelify Sans", "Atkinson Hyperlegible", system-ui, sans-serif;
+  --font-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b1a20; --surface: #12262e; --sunk: #0f2128; --ink: #e3eff0; --muted: #94adb3; --line: #24414b;
+  --accent: #f07aa9; --accent-soft: #3a1d2b; --teal: #5cc4bf; --ok: #7fd197; --ok-soft: #173325; --warn: #e8bf6a; --warn-soft: #33290f; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0b1a20; --surface: #12262e; --sunk: #0f2128; --ink: #e3eff0; --muted: #94adb3; --line: #24414b;
+  --accent: #f07aa9; --accent-soft: #3a1d2b; --teal: #5cc4bf; --ok: #7fd197; --ok-soft: #173325; --warn: #e8bf6a; --warn-soft: #33290f; color-scheme: dark; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.5 var(--font-body); }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 72px; display: grid; gap: 26px; }
+h1, h2, h3 { margin: 0; text-wrap: balance; }
+h1 { font-family: var(--font-display); font-weight: 700; font-size: clamp(30px, 6vw, 44px); line-height: 1.05; }
+h2 { font-family: var(--font-display); font-weight: 500; font-size: 24px; }
+h3 { font-size: 17px; }
+p { margin: 0; max-width: 64ch; }
+a { color: var(--teal); }
+.eyebrow { font: 700 12px var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.muted { color: var(--muted); }
+section { display: grid; gap: 12px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; display: grid; gap: 12px; }
+ol.steps { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: s; }
+ol.steps li { counter-increment: s; display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+ol.steps li::before { content: counter(s); width: 34px; height: 34px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font: 700 17px/34px var(--font-display); text-align: center; }
+.path { font-family: var(--font-mono); font-size: 14px; background: var(--sunk); padding: 2px 6px; border-radius: 6px; overflow-wrap: anywhere; }
+.pads { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 6px 16px; font-size: 15px; }
+.pads b { font-family: var(--font-mono); font-weight: 500; background: var(--sunk); padding: 1px 6px; border-radius: 6px; }
+.q { display: grid; gap: 8px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.q:last-child { border-bottom: 0; }
+.q label.title { font-weight: 700; }
+.q .hint { font-size: 15px; color: var(--muted); }
+.choices { display: flex; flex-wrap: wrap; gap: 8px; }
+.choices label { display: inline-flex; gap: 8px; align-items: center; border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; background: var(--surface); font-size: 15px; min-height: 40px; }
+.choices input { accent-color: var(--accent); width: 18px; height: 18px; }
+.choices label:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
+textarea, input[type=text] { width: 100%; font: 16px var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; box-sizing: border-box; }
+textarea { min-height: 84px; resize: vertical; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.report { display: grid; gap: 10px; }
+pre#out { margin: 0; white-space: pre-wrap; font: 14px/1.5 var(--font-mono); background: var(--sunk); border-radius: 10px; padding: 14px; max-height: 420px; overflow: auto; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+button.primary { font: 700 17px var(--font-body); background: var(--accent); color: #fff; border: 0; border-radius: 10px; padding: 12px 20px; min-height: 48px; cursor: pointer; }
+button.ghost { font: 700 15px var(--font-body); background: transparent; color: var(--teal); border: 1px solid var(--line); border-radius: 10px; padding: 10px 16px; min-height: 44px; cursor: pointer; }
+.status { font-size: 15px; color: var(--ok); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header style="display:grid;gap:10px">
+    <span class="eyebrow">My Octopus Friend · Steam Deck test</span>
+    <h1>Thanks for testing on your Deck!</h1>
+    <p>You're playing a test build before the game comes out on 27 October. Please play a few dives, then fill in the questions below. The page turns your answers into a short report you can copy and send back. Honest is best: anything that breaks, confuses or annoys you helps a lot.</p>
+  </header>
+
+  <section aria-labelledby="setupH">
+    <h2 id="setupH">Getting the test version</h2>
+    <ol class="steps">
+      <li><div><h3>Activate your key</h3><p>The easiest way is in a web browser: go to <span class="path">store.steampowered.com/account/registerkey</span>, sign in and paste the key. You can also do it in the Steam app with <span class="path">Games → Activate a Product on Steam…</span></p></div></li>
+      <li><div><h3>Switch to the test build</h3><p>On the Deck, open the game in your <b>Library</b>, press the <b>⚙ gear</b> → <span class="path">Properties → Betas</span> and choose <b>rctest</b>. No password is needed. Let it update. Without this step you get an older build.</p></div></li>
+      <li><div><h3>Play normally</h3><p>Use the Deck's controls; you don't need a keyboard. A few full dives is perfect. If something goes wrong, take a screenshot (<b>STEAM + R1</b>) so you can send it too.</p></div></li>
+    </ol>
+    <div class="panel">
+      <h3>Deck buttons</h3>
+      <div class="pads">
+        <span><b>Left stick</b> swim</span><span><b>Right stick</b> aim and ink</span><span><b>R2</b> ink the way you face</span>
+        <span><b>A</b> pick up · talk · choose</span><span><b>B</b> or <b>L2</b> spin</span><span><b>X</b> or <b>L1</b> drop a mine</span>
+        <span><b>Y</b> use your item</span><span><b>R1</b> pocket item</span><span><b>☰</b> pause · <b>⧉</b> map</span>
+      </div>
+      <p class="muted" style="font-size:15px">The touch screen works too: drag on the left half to swim and the right half to aim.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="testH">
+    <h2 id="testH">What to check</h2>
+    <form id="f" class="panel" autocomplete="off">
+      <div class="q">
+        <label class="title" for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="So I know who sent it">
+      </div>
+      <div class="q">
+        <span class="title">Did it start and play fine?</span>
+        <div class="choices" role="radiogroup" aria-label="Did it start and play fine">
+          <label><input type="radio" name="start" value="Yes, no problems"> Yes, no problems</label>
+          <label><input type="radio" name="start" value="Started, but had problems"> Started, but had problems</label>
+          <label><input type="radio" name="start" value="Didn't start"> Didn't start</label>
+        </div>
+      </div>
+      <div class="q">
+        <span class="title">Controls</span>
+        <span class="hint">Swimming, aiming, spinning, mines, items, menus and the pause menu, using the buttons above. Did the prompts on screen show Deck buttons rather than keyboard keys?</span>
+        <div class="choices" role="radiogroup" aria-label="Controls">
+          <label><input type="radio" name="controls" value="Everything felt right"> Everything felt right</label>
+          <label><input type="radio" name="controls" value="Mostly fine, a few odd bits"> Mostly fine, a few odd bits</label>
+          <label><input type="radio" name="controls" value="Hard to play"> Hard to play</label>
+        </div>
+        <textarea id="controlsNote" name="controlsNote" aria-label="Notes about controls" placeholder="Anything odd? e.g. a button that did nothing, a menu you couldn't leave"></textarea>
+      </div>
+      <div class="q">
+        <span class="title">Reading text on the Deck screen</span>
+        <span class="hint">Tip: Settings → TEXT SIZE makes everything bigger.</span>
+        <div class="choices" role="radiogroup" aria-label="Text readability">
+          <label><input type="radio" name="text" value="Easy to read"> Easy to read</label>
+          <label><input type="radio" name="text" value="OK after making text bigger"> OK after making text bigger</label>
+          <label><input type="radio" name="text" value="Too small even when bigger"> Too small even when bigger</label>
+        </div>
+      </div>
+      <div class="q">
+        <span class="title">How smooth was it?</span>
+        <span class="hint">Especially on later floors with lots of foes and effects. The Deck's own performance overlay (… button → battery icon) shows frames per second if you want a number.</span>
+        <div class="choices" role="radiogroup" aria-label="Smoothness">
+          <label><input type="radio" name="smooth" value="Smooth the whole time"> Smooth the whole time</label>
+          <label><input type="radio" name="smooth" value="Dips in busy fights"> Dips in busy fights</label>
+          <label><input type="radio" name="smooth" value="Choppy a lot"> Choppy a lot</label>
+        </div>
+        <input type="text" id="fps" name="fps" aria-label="Frames per second if known" placeholder="FPS if you checked, and any pauses when a new floor loads">
+      </div>
+      <div class="q">
+        <span class="title">Battery and heat</span>
+        <span class="hint">Settings → FRAME RATE can cap the game (cooler, quieter, longer battery). Try it capped and uncapped if you can.</span>
+        <input type="text" id="battery" name="battery" aria-label="Battery and heat" placeholder="e.g. 'about 15% in 30 minutes at 30 FPS, fan quiet'">
+      </div>
+      <div class="q">
+        <span class="title">Sleep and the Steam button</span>
+        <span class="hint">During a dive, press the <b>power button</b> to sleep, wake it up, and keep playing. Also press the <b>STEAM</b> button mid-fight: does the game pause?</span>
+        <div class="choices" role="group" aria-label="Sleep and Steam button">
+          <label><input type="checkbox" name="sleep" value="Sleep and wake worked"> Sleep and wake worked</label>
+          <label><input type="checkbox" name="sleep" value="STEAM button paused the game"> STEAM button paused the game</label>
+          <label><input type="checkbox" name="sleep" value="An achievement popped up"> An achievement popped up</label>
+          <label><input type="checkbox" name="sleep" value="Touch screen worked"> Touch screen worked</label>
+        </div>
+      </div>
+      <div class="q">
+        <label class="title" for="bugs">Anything that broke, looked wrong or got stuck?</label>
+        <span class="hint">What were you doing, what happened, and did it happen again?</span>
+        <textarea id="bugs" name="bugs" placeholder="e.g. 'On the 3rd sea a crab got stuck in a wall and the door wouldn't open'"></textarea>
+      </div>
+      <div class="q">
+        <span class="title">How fun was it?</span>
+        <div class="choices" role="radiogroup" aria-label="Fun rating">
+          <label><input type="radio" name="fun" value="5 · Loved it"> 5 · Loved it</label>
+          <label><input type="radio" name="fun" value="4"> 4</label>
+          <label><input type="radio" name="fun" value="3"> 3</label>
+          <label><input type="radio" name="fun" value="2"> 2</label>
+          <label><input type="radio" name="fun" value="1 · Not for me"> 1 · Not for me</label>
+        </div>
+        <textarea id="funNote" name="funNote" aria-label="What was fun or not" placeholder="Best moment? Anything too hard, too easy or confusing? If kids played, what did they think?"></textarea>
+      </div>
+    </form>
+  </section>
+
+  <section aria-labelledby="sendH" class="report">
+    <h2 id="sendH">Send it back</h2>
+    <p class="muted">Your report updates as you answer. Copy it and send it however you normally chat (message, email or Discord), with any screenshots.</p>
+    <pre id="out" aria-live="polite"></pre>
+    <div class="actions"><button class="primary" type="button" id="copy">Copy report</button><button class="ghost" type="button" id="clear">Start over</button><span class="status" id="st" role="status"></span></div>
+  </section>
+</div>
+
+<script>
+const f = document.getElementById('f'), out = document.getElementById('out'), st = document.getElementById('st');
+const KEY = 'octo-deck-test-draft';
+function data() {
+  const d = {}; for (const el of f.elements) {
+    if (!el.name) continue;
+    if (el.type === 'radio') { if (el.checked) d[el.name] = el.value; }
+    else if (el.type === 'checkbox') { if (el.checked) (d[el.name] ||= []).push(el.value); }
+    else d[el.name] = el.value.trim();
+  }
+  return d;
+}
+function report() {
+  const d = data(), L = [];
+  L.push('MY OCTOPUS FRIEND · STEAM DECK TEST (rctest build)');
+  if (d.name) L.push('From: ' + d.name);
+  L.push('');
+  const line = (label, v) => { if (v && (Array.isArray(v) ? v.length : true)) L.push(label + ': ' + (Array.isArray(v) ? v.join(', ') : v)); };
+  line('Started / played', d.start); line('Controls', d.controls); line('Controls notes', d.controlsNote);
+  line('Text', d.text); line('Smoothness', d.smooth); line('FPS / load pauses', d.fps); line('Battery & heat', d.battery);
+  line('Sleep / Steam button / achievements', d.sleep); line('Bugs', d.bugs); line('Fun', d.fun); line('Fun notes', d.funNote);
+  if (L.length <= 3) L.push('(Answer the questions above and your report appears here.)');
+  out.textContent = L.join('\n');
+  try { localStorage.setItem(KEY, JSON.stringify(d)); } catch {}
+}
+function restore() {
+  let d = null; try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch {}
+  if (!d) return;
+  for (const el of f.elements) {
+    if (!el.name || !(el.name in d)) continue;
+    if (el.type === 'radio') el.checked = d[el.name] === el.value;
+    else if (el.type === 'checkbox') el.checked = (d[el.name] || []).includes(el.value);
+    else el.value = d[el.name];
+  }
+}
+f.addEventListener('input', report); f.addEventListener('change', report);
+f.addEventListener('submit', e => e.preventDefault());
+document.getElementById('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(out.textContent); st.textContent = 'Copied. Paste it into a message.'; }
+  catch { const r = document.createRange(); r.selectNodeContents(out); const s = getSelection(); s.removeAllRanges(); s.addRange(r); st.textContent = 'Selected. Copy it with your device’s copy command.'; }
+});
+document.getElementById('clear').addEventListener('click', () => { f.reset(); try { localStorage.removeItem(KEY); } catch {} st.textContent = ''; report(); });
+restore(); report();
+</script>
+
+</body>
+</html>
