@@ -134,6 +134,16 @@ button.ghost { font: 700 15px var(--font-body); background: transparent; color: 
         </div>
       </div>
       <div class="q">
+        <span class="title">Buttons, shots and sounds</span>
+        <span class="hint">The on-screen hints should use your Deck's own names (R1, L2, ☰). Brushing the trackpad shouldn't change them to keyboard keys. Shots now have dark outlines, and shooting is a bit louder. Try AUTO-FIRE both on and off in Settings.</span>
+        <div class="choices" role="group" aria-label="Buttons, shots and sounds">
+          <label><input type="checkbox" name="rc6" value="Button hints matched my Deck"> Button hints matched my Deck</label>
+          <label><input type="checkbox" name="rc6" value="Shots were easy to see"> Shots were easy to see</label>
+          <label><input type="checkbox" name="rc6" value="Shooting sounds loud enough"> Shooting sounds loud enough</label>
+          <label><input type="checkbox" name="rc6" value="Aim cross easy to see (auto-fire off)"> Aim cross easy to see (auto-fire off)</label>
+        </div>
+      </div>
+      <div class="q">
         <span class="title">Reading text on the Deck screen</span>
         <span class="hint">Tip: Settings → TEXT SIZE makes everything bigger.</span>
         <div class="choices" role="radiogroup" aria-label="Text readability">
@@ -212,7 +222,7 @@ function report() {
   if (d.name) L.push('From: ' + d.name);
   L.push('');
   const line = (label, v) => { if (v && (Array.isArray(v) ? v.length : true)) L.push(label + ': ' + (Array.isArray(v) ? v.join(', ') : v)); };
-  line('Started / played', d.start); line('Controls', d.controls); line('Controls notes', d.controlsNote); line('Zoom and hop', d.zoom); line('Zoom notes', d.zoomNote); line('Cute stuff seen', d.cute);
+  line('Started / played', d.start); line('Controls', d.controls); line('Controls notes', d.controlsNote); line('Zoom and hop', d.zoom); line('Zoom notes', d.zoomNote); line('Cute stuff seen', d.cute); line('Buttons/shots/sounds OK', d.rc6);
   line('Text', d.text); line('Smoothness', d.smooth); line('FPS / load pauses', d.fps); line('Battery & heat', d.battery);
   line('Sleep / Steam button / achievements', d.sleep); line('Bugs', d.bugs); line('Fun', d.fun); line('Fun notes', d.funNote);
   if (L.length <= 3) L.push('(Answer the questions above and your report appears here.)');
