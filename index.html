@@ -82,10 +82,10 @@ button.ghost { font: 700 15px var(--font-body); background: transparent; color: 
       <h3>Deck buttons</h3>
       <div class="pads">
         <span><b>Left stick</b> swim</span><span><b>Right stick</b> aim and ink</span><span><b>R2</b> ink the way you face</span>
-        <span><b>A</b> pick up · talk · choose</span><span><b>B</b> or <b>L2</b> spin</span><span><b>X</b> or <b>L1</b> drop a mine</span>
+        <span><b>A</b> pick up · talk · choose</span><span><b>B</b> or <b>L2</b> spin · hold to zoom</span><span><b>X</b> or <b>L1</b> drop a mine</span>
         <span><b>Y</b> use your item</span><span><b>R1</b> pocket item</span><span><b>☰</b> pause · <b>⧉</b> map</span>
       </div>
-      <p class="muted" style="font-size:15px">The touch screen works too: drag on the left half to swim and the right half to aim.</p>
+      <p class="muted" style="font-size:15px">In a fight, B or L2 spins on the spot. When the room is safe, hold it to <b>zoom</b>, and zoom at a hole or a small rock to hop right over it. The touch screen works too: drag on the left half to swim and the right half to aim.</p>
     </div>
   </section>
 
@@ -113,6 +113,25 @@ button.ghost { font: 700 15px var(--font-body); background: transparent; color: 
           <label><input type="radio" name="controls" value="Hard to play"> Hard to play</label>
         </div>
         <textarea id="controlsNote" name="controlsNote" aria-label="Notes about controls" placeholder="Anything odd? e.g. a button that did nothing, a menu you couldn't leave"></textarea>
+      </div>
+      <div class="q">
+        <span class="title">Zooming and hopping</span>
+        <span class="hint">When a room is safe, hold B or L2 to zoom. Zoom at a hole or a small rock to hop it. In a fight, B or L2 spins on the spot.</span>
+        <div class="choices" role="radiogroup" aria-label="Zooming and hopping">
+          <label><input type="radio" name="zoom" value="Felt great"> Felt great</label>
+          <label><input type="radio" name="zoom" value="OK"> OK</label>
+          <label><input type="radio" name="zoom" value="Felt odd or didn't work"> Felt odd or didn't work</label>
+        </div>
+        <input type="text" id="zoomNote" name="zoomNote" aria-label="Notes about zooming" placeholder="e.g. 'hop missed a hole', 'zoom sound too loud', 'spinning in fights felt weak'">
+      </div>
+      <div class="q">
+        <span class="title">Cute stuff (stand still for a while when it's safe)</span>
+        <div class="choices" role="group" aria-label="Cute idles seen">
+          <label><input type="checkbox" name="cute" value="Petted a buddy"> Petted a buddy</label>
+          <label><input type="checkbox" name="cute" value="Juggled gems"> Juggled gems</label>
+          <label><input type="checkbox" name="cute" value="Hid under a shell"> Hid under a shell</label>
+          <label><input type="checkbox" name="cute" value="Looked closely at a new treasure"> Looked closely at a new treasure</label>
+        </div>
       </div>
       <div class="q">
         <span class="title">Reading text on the Deck screen</span>
@@ -162,7 +181,7 @@ button.ghost { font: 700 15px var(--font-body); background: transparent; color: 
           <label><input type="radio" name="fun" value="2"> 2</label>
           <label><input type="radio" name="fun" value="1 · Not for me"> 1 · Not for me</label>
         </div>
-        <textarea id="funNote" name="funNote" aria-label="What was fun or not" placeholder="Best moment? Anything too hard, too easy or confusing? If kids played, what did they think?"></textarea>
+        <textarea id="funNote" name="funNote" aria-label="What was fun or not" placeholder="Best moment? Anything too hard, too easy or confusing? Did any guardian fight drag on? If kids played, what did they think?"></textarea>
       </div>
     </form>
   </section>
@@ -193,7 +212,7 @@ function report() {
   if (d.name) L.push('From: ' + d.name);
   L.push('');
   const line = (label, v) => { if (v && (Array.isArray(v) ? v.length : true)) L.push(label + ': ' + (Array.isArray(v) ? v.join(', ') : v)); };
-  line('Started / played', d.start); line('Controls', d.controls); line('Controls notes', d.controlsNote);
+  line('Started / played', d.start); line('Controls', d.controls); line('Controls notes', d.controlsNote); line('Zoom and hop', d.zoom); line('Zoom notes', d.zoomNote); line('Cute stuff seen', d.cute);
   line('Text', d.text); line('Smoothness', d.smooth); line('FPS / load pauses', d.fps); line('Battery & heat', d.battery);
   line('Sleep / Steam button / achievements', d.sleep); line('Bugs', d.bugs); line('Fun', d.fun); line('Fun notes', d.funNote);
   if (L.length <= 3) L.push('(Answer the questions above and your report appears here.)');
